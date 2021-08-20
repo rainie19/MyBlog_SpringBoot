@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.macie.dao.TagDao">
+
+    <select id="listAllTags" resultType="com.macie.entity.Tag">
+        SELECT
+            *, COUNT(*) AS tag_count
+        FROM tags
+        GROUP BY tag_name
+    </select>
+
+    <select id="getTagsByArticleId" resultType="com.macie.entity.Tag">
+        SELECT
+            tag_connect_id, article_id, tag_name
+        FROM tags
+        WHERE article_id = #{articleId}
+    </select>
+
+    <select id="countAllTags" resultType="java.lang.Long">
+        SELECT
+            COUNT(DISTINCT tag_name)
+            FROM tags
+    </select>
+
+    <delete id="deleteTagsByArticleId">
+        DELETE FROM tags
+        WHERE article_id = #{articleId}
+    </delete>
+
+    <delete id="deleteTag">
+        DELETE FROM tags
+        WHERE tag_name = #{tagName}
+    </delete>
+
+    <insert id="insertTagByArticleId" parameterType="com.macie.entity.Tag">
+        INSERT INTO tags(article_id, tag_name) VALUES (
+            #{articleId}, #{tagName}
+        )
+    </insert>
+
+</mapper>

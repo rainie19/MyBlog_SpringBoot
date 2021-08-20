@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.macie.dao.ArticleDao">
+
+    <sql id="article_info"> article_id, article_title, article_slug, article_author, article_summary, category_name, article_create_time, article_view_count, article_comments_count </sql>
+
+    <select id="listAllArticles" resultType="com.macie.entity.Article">
+        SELECT
+            <include refid="article_info" />
+        FROM article_details
+        ORDER BY article_id DESC
+    </select>
+
+    <select id="listArticlesPerPage" resultType="com.macie.entity.Article">
+        SELECT
+            <include refid="article_info" />
+        FROM article_details
+        ORDER BY article_id DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="getArticleById" resultType="com.macie.entity.Article">
+        SELECT *
+        FROM article_details
+        WHERE article_id = #{articleId}
+    </select>
+
+    <insert id="insertNewArticle" useGeneratedKeys="true" parameterType="com.macie.entity.Article" keyProperty="articleId">
+        INSERT INTO article_details
+            (article_id, article_title, article_slug, article_author, article_summary, category_name,
+            article_create_time, article_content_md, article_content_html)
+        VALUES
+            (#{articleId}, #{articleTitle}, #{articleSlug},
+            #{articleAuthor}, #{articleSummary}, #{categoryName}, #{articleCreateTime},
+            #{articleContentMd}, #{articleContentHtml})
+    </insert>
+
+    <update id="updateArticle" parameterType="com.macie.entity.Article">
+        UPDATE article_details
+        <set>
+            <choose>
+                <when test="articleId != null">
+                    <if test="articleTitle != null">article_title = #{articleTitle},</if>
+                    <if test="articleSlug != null">article_slug = #{articleSlug},</if>
+                    <if test="articleSummary != null">article_summary = #{articleSummary},</if>
+                    <if test="categoryName != null">category_name = #{categoryName},</if>
+                    <if test="articleContentHtml != null">article_content_html = #{articleContentHtml},</if>
+                    <if test="articleContentMd != null">article_content_md = #{articleContentMd},</if>
+                </when>
+            </choose>
+        </set>
+        WHERE article_id = #{articleId}
+    </update>
+
+    <update id="updateArticleViewCount">
+        UPDATE article_details
+        <set>
+            article_view_count = article_view_count + 1
+            WHERE article_id = #{articleId}
+        </set>
+    </update>
+
+    <delete id="deleteArticle">
+        DELETE FROM article_details
+        WHERE article_id = #{articleId}
+    </delete>
+
+    <select id="getPreviousArticle" resultType="com.macie.entity.Article">
+        SELECT
+            article_id, article_title, article_slug
+        FROM article_details
+        WHERE article_id = (
+            SELECT min(article_id) FROM article_details WHERE article_id <![CDATA[ > ]]> #{articleId}
+        )
+    </select>
+
+    <select id="getNextArticle" resultType="com.macie.entity.Article">
+        SELECT
+            article_id, article_title, article_slug
+        FROM article_details
+        WHERE article_id = (
+            SELECT max(article_id) FROM article_details WHERE article_id <![CDATA[ < ]]> #{articleId}
+        )
+    </select>
+
+    <select id="countAllArticles" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        <choose>
+            <when test="type == 'category'">
+                FROM article_details WHERE category_name = #{value}
+            </when>
+            <when test="type == 'tag'">
+                FROM tags WHERE tag_name = #{value}
+            </when>
+            <otherwise>
+                FROM article_details
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="listArticlesByCategoryName" resultType="com.macie.entity.Article">
+        SELECT
+        <include refid="article_info"/>
+        FROM article_details
+        WHERE  category_name = #{categoryName}
+        ORDER BY article_id DESC
+    </select>
+    
+    <select id="listArticlesByCategoryNamePerPage" resultType="com.macie.entity.Article">
+        SELECT
+        <include refid="article_info"/>
+        FROM article_details
+        WHERE  category_name = #{categoryName}
+        ORDER BY article_id DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="listArticlesByTagName" resultType="com.macie.entity.Article">
+        SELECT
+        <include refid="article_info"/>
+        FROM article_details
+        WHERE article_id IN (
+            SELECT article_id FROM tags WHERE tag_name = #{tagName}
+            ORDER BY article_id DESC
+        )
+    </select>
+
+    <select id="listArticlesByTagNamePerPage" resultType="com.macie.entity.Article">
+        SELECT
+            a1.article_id, a1.article_title, a1.article_slug, a1.article_author, a1.article_summary, a1.category_name, a1.article_create_time, a1.article_view_count, a1.article_comments_count
+        FROM article_details AS a1
+        INNER JOIN (
+            SELECT article_id FROM tags WHERE tag_name = #{tagName}
+        ) AS a2
+        ON a1.article_id = a2.article_id
+        ORDER BY a1.article_id DESC
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    
+</mapper>

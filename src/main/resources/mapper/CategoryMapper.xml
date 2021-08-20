@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.macie.dao.CategoryDao">
+    
+    <select id="listAllCategories" resultType="com.macie.entity.Category">
+        SELECT
+            category_id, category_name
+        FROM blog_category
+    </select>
+
+    <select id="countAllCategories" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM blog_category
+    </select>
+
+    <update id="updateCategory2Default">
+        UPDATE article_details
+        SET category_name = '默认分类'
+        WHERE category_name = (
+            SELECT category_name FROM blog_category WHERE category_id = #{categoryId}
+        )
+    </update>
+
+    <delete id="deleteCategoryById">
+        DELETE FROM blog_category
+        WHERE category_id = #{categoryId}
+    </delete>
+
+    <insert id="insertNewCategory" parameterType="com.macie.entity.Category">
+        INSERT INTO blog_category (category_name, create_date)
+        VALUES (#{categoryName}, now())
+    </insert>
+
+    <select id="isCategoryExists" resultType="java.lang.Boolean">
+        SELECT IFNULL((SELECT 'true' FROM blog_category WHERE category_name = #{categoryName}), false)
+    </select>
+</mapper>
