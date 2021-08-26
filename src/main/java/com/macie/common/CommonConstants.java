@@ -8,13 +8,13 @@ import java.io.File;
  */
 public class CommonConstants {
 
-    /** 工程部署路径,如 windows上为 MyBlog_SSM/webapp, 服务器为/MyBlog_SSM的绝对路径  **/
+    /** 工程部署路径 **/
     public static final File WEB_DEPLOY_PATH = new File(System.getProperty("user.dir"));
 
-    /** 工程根目录路径 ,MyBlog_SSM的同级目录 **/
+    /** 工程根目录路径 **/
     public static final String WEB_ROOT_PATH = WEB_DEPLOY_PATH.getParent();
 
-    /** 图片文件相对工程根目录的路径 */
+    /** 图片文件路径 */
     public static final String IMAGE_UPLOAD_PATH = File.separator + "image";
 
     /** 图片上传路径 **/

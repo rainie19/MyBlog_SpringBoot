@@ -3,7 +3,6 @@ package com.macie.controller;
 import com.macie.dto.JsonResponse;
 import com.macie.service.serviceImpl.AllCountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +14,6 @@ import java.util.Map;
  * @date 2021/10/10 -0:17
  */
 @RestController
-@Transactional
 public class AllCountController {
 
     @Autowired

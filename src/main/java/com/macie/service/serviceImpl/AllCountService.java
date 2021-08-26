@@ -5,6 +5,7 @@ import com.macie.dao.CategoryDao;
 import com.macie.dao.TagDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +15,7 @@ import java.util.Map;
  * @date 2020/10/23 -19:31
  */
 @Service
+@Transactional
 public class AllCountService {
     @Autowired
     public ArticleDao articleDao;

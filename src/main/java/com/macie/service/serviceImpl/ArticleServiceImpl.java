@@ -10,6 +10,7 @@ import com.macie.exception.BusinessException;
 import com.macie.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.Min;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.List;
  * @date 2020/10/29 -16:57
  */
 @Service
+@Transactional
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleDao articleDao;

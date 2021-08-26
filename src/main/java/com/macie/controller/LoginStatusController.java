@@ -20,7 +20,6 @@ import java.util.Map;
  * @date 2021/10/10 -0:09
  */
 @RestController
-@Transactional
 public class LoginStatusController {
 
     @Autowired

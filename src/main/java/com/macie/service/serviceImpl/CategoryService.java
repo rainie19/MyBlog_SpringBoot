@@ -5,6 +5,7 @@ import com.macie.dao.CategoryDao;
 import com.macie.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
@@ -20,6 +21,7 @@ import java.util.Map;
  */
 @Service
 @Validated
+@Transactional
 public class CategoryService {
     @Autowired
     public CategoryDao categoryDao;

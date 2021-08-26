@@ -6,7 +6,6 @@ import com.macie.entity.Tag;
 import com.macie.service.ArticleService;
 import com.macie.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +23,6 @@ import java.util.Map;
  * @date 2021/10/9 -15:36
  */
 @RestController
-@Transactional
 public class ArticleController {
     @Autowired
     private ArticleService articleService;

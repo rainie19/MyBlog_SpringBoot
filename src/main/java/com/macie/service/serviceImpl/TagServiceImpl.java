@@ -7,6 +7,7 @@ import com.macie.entity.Tag;
 import com.macie.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import java.util.Map;
  * @date 2020/10/29 -17:59
  */
 @Service
+@Transactional
 public class TagServiceImpl implements TagService {
     @Autowired
     public TagDao tagDao;

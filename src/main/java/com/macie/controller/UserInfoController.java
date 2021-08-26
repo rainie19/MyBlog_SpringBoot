@@ -7,7 +7,6 @@ import com.macie.service.UserInfoService;
 import com.macie.util.ImageUploadUtil;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +21,6 @@ import java.util.Map;
  * @date 2021/10/9 -22:31
  */
 @RestController
-@Transactional
 public class UserInfoController {
     @Autowired
     private UserInfoService userInfoService;

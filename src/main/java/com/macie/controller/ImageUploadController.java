@@ -3,7 +3,6 @@ package com.macie.controller;
 import com.macie.common.CommonConstants;
 import com.macie.dto.JsonResponse;
 import com.macie.util.ImageUploadUtil;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +18,6 @@ import java.util.Map;
  * @date 2021/10/10 -0:17
  */
 @RestController
-@Transactional
 public class ImageUploadController {
 
     @PostMapping("/uploadImg")

@@ -7,12 +7,14 @@ import com.macie.exception.BusinessException;
 import com.macie.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Macie
  * @date 2020/9/30 -21:08
  */
 @Service
+@Transactional
 public class UserInfoServiceImpl implements UserInfoService {
     @Autowired
     public UserInfoDao userInfoDao;

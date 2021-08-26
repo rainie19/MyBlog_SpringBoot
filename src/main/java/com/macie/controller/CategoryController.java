@@ -4,7 +4,6 @@ import com.macie.dto.JsonResponse;
 import com.macie.entity.Category;
 import com.macie.service.serviceImpl.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +17,6 @@ import java.util.Map;
  * @date 2021/10/9 -22:32
  */
 @RestController
-@Transactional
 public class CategoryController {
 
     @Autowired
